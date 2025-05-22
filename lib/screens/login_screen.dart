@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:usertrek/constants/colors.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -9,7 +10,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF10182C),
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -23,60 +24,69 @@ class LoginScreen extends StatelessWidget {
                 'UserTrek',
                 style: TextStyle(
                   fontSize: 40,
-                  color: Colors.white,
+                  color: AppColors.textWhite,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 20),
               const Text(
                 'Welcome back!',
-                style: TextStyle(fontSize: 30, color: Colors.white),
+                style: TextStyle(fontSize: 30, color: AppColors.textWhite),
               ),
               const SizedBox(height: 20),
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.email, color: Colors.white),
+                  prefixIcon: const Icon(
+                    Icons.email,
+                    color: AppColors.textWhite,
+                  ),
                   hintText: 'Email',
-                  hintStyle: const TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: AppColors.textHint),
                   filled: true,
-                  fillColor: Colors.white10,
+                  fillColor: AppColors.inputFill,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: AppColors.textWhite),
               ),
               const SizedBox(height: 15),
               TextField(
                 controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.lock, color: Colors.white),
+                  prefixIcon: const Icon(
+                    Icons.lock,
+                    color: AppColors.textWhite,
+                  ),
                   hintText: 'Password',
-                  hintStyle: const TextStyle(color: Colors.white54),
+                  hintStyle: const TextStyle(color: AppColors.textHint),
                   filled: true,
-                  fillColor: Colors.white10,
+                  fillColor: AppColors.inputFill,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: AppColors.textWhite),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
+
               SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/profile');
+                  },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF5CA9F3),
+                    backgroundColor: AppColors.primary,
                     shape: const StadiumBorder(),
                   ),
                   child: const Text(
                     'LOG IN',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColors.textWhite,
                       fontSize: 16,
                       letterSpacing: 1,
                       fontWeight: FontWeight.w600,
@@ -84,15 +94,36 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/forget_password');
+                },
                 child: const Text(
-                  "Already have an account?",
-                  style: TextStyle(color: Colors.white60, fontSize: 15),
+                  "Forgot Password?",
+                  style: TextStyle(color: AppColors.textWhite, fontSize: 15),
                 ),
               ),
-              const SizedBox(height: 20),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/signup');
+                },
+                child: RichText(
+                  text: TextSpan(
+                    text: "Don't have an account? ",
+                    style: const TextStyle(color: Colors.white70, fontSize: 17),
+                    children: [
+                      TextSpan(
+                        text: 'Sign up',
+                        style: const TextStyle(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

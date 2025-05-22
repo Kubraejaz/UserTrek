@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:usertrek/constants/colors.dart';
+import '../constants/colors.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.pushReplacementNamed(context, '/login');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,8 +26,8 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset('assets/images/logo.png', height: 110),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'UserTrek',
               style: TextStyle(
                 fontSize: 40,
