@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:usertrek/screens/singup_screen.dart';
+import 'package:usertrek/screens/signup_screen.dart';
 import 'package:usertrek/constants/colors.dart';
 import 'package:usertrek/screens/splash_screen.dart';
 import 'package:usertrek/screens/login_screen.dart';
 import 'package:usertrek/screens/forget_password_screen.dart';
-import 'package:usertrek/screens/user_profile_screen.dart';
+import 'package:usertrek/screens/profile_screen.dart';
 
 void main() {
   runApp(const UserTrekApp());
@@ -34,7 +34,7 @@ class UserTrekApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/signup': (context) => const SignupScreen(),
         '/forget_password': (context) => const ForgetPasswordScreen(),
-        '/profile': (context) => const UserProfileScreen(),
+        '/profile': (context) => const ProfileScreen(),
       },
     );
   }

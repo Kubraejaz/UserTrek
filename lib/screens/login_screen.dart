@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:usertrek/constants/colors.dart';
+import 'package:usertrek/widget/login_widget.dart';
+import 'package:usertrek/models/user_model.dart'; // Make sure you import your UserModel class
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+  LoginScreen({Key? key}) : super(key: key);
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -12,120 +14,30 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 40),
-              Image.asset('assets/images/logo.png', height: 100),
-              const SizedBox(height: 16),
-              const Text(
-                'UserTrek',
-                style: TextStyle(
-                  fontSize: 40,
-                  color: AppColors.textWhite,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Welcome back!',
-                style: TextStyle(fontSize: 30, color: AppColors.textWhite),
-              ),
-              const SizedBox(height: 20),
-              TextField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(
-                    Icons.email,
-                    color: AppColors.textWhite,
-                  ),
-                  hintText: 'Email',
-                  hintStyle: const TextStyle(color: AppColors.textHint),
-                  filled: true,
-                  fillColor: AppColors.inputFill,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                style: const TextStyle(color: AppColors.textWhite),
-              ),
-              const SizedBox(height: 15),
-              TextField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(
-                    Icons.lock,
-                    color: AppColors.textWhite,
-                  ),
-                  hintText: 'Password',
-                  hintStyle: const TextStyle(color: AppColors.textHint),
-                  filled: true,
-                  fillColor: AppColors.inputFill,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                style: const TextStyle(color: AppColors.textWhite),
-              ),
-              const SizedBox(height: 20),
+        child: LoginWidget(
+          emailController: emailController,
+          passwordController: passwordController,
+          onLoginPressed: () {
+            // Create UserModel with your data (for example, hardcoded or from the controllers)
+            final user = UserModel(
+              avatarPath: 'assets/images/avatar.png',
+              account: emailController.text, // using email input as account
+              password: passwordController.text,
+              about: 'I am Kubra!', // you can replace this with actual data
+            );
 
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/profile');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    shape: const StadiumBorder(),
-                  ),
-                  child: const Text(
-                    'LOG IN',
-                    style: TextStyle(
-                      color: AppColors.textWhite,
-                      fontSize: 16,
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/forget_password');
-                },
-                child: const Text(
-                  "Forgot Password?",
-                  style: TextStyle(color: AppColors.textWhite, fontSize: 15),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/signup');
-                },
-                child: RichText(
-                  text: TextSpan(
-                    text: "Don't have an account? ",
-                    style: const TextStyle(color: Colors.white70, fontSize: 17),
-                    children: [
-                      TextSpan(
-                        text: 'Sign up',
-                        style: const TextStyle(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+            Navigator.pushReplacementNamed(
+              context,
+              '/profile',
+              arguments: user,
+            );
+          },
+          onForgotPasswordPressed: () {
+            Navigator.pushNamed(context, '/forget_password');
+          },
+          onSignUpPressed: () {
+            Navigator.pushNamed(context, '/signup');
+          },
         ),
       ),
     );

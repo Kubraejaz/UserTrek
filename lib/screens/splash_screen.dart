@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../constants/colors.dart';
+import 'package:usertrek/constants/colors.dart';
+import 'package:usertrek/widget/splash_widget.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,23 +23,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/logo.png', height: 110),
-            const SizedBox(height: 10),
-            const Text(
-              'UserTrek',
-              style: TextStyle(
-                fontSize: 40,
-                color: AppColors.textWhite,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
+      body: const SplashWidget(),
     );
   }
 }
+
