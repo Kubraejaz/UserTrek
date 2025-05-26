@@ -78,7 +78,6 @@ class LoginWidget extends StatelessWidget {
             style: const TextStyle(color: AppColors.textWhite),
           ),
           const SizedBox(height: 20),
-
           SizedBox(
             width: double.infinity,
             height: 50,

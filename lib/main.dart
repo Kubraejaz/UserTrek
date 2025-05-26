@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:usertrek/screens/signup_screen.dart';
 import 'package:usertrek/constants/colors.dart';
@@ -6,7 +7,9 @@ import 'package:usertrek/screens/login_screen.dart';
 import 'package:usertrek/screens/forget_password_screen.dart';
 import 'package:usertrek/screens/profile_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const UserTrekApp());
 }
 
@@ -26,6 +29,10 @@ class UserTrekApp extends StatelessWidget {
         textTheme: const TextTheme(
           bodyLarge: TextStyle(color: AppColors.textWhite),
           bodyMedium: TextStyle(color: AppColors.textWhite70),
+        ),
+        colorScheme: ColorScheme.dark(
+          primary: AppColors.primary,
+          background: AppColors.background,
         ),
       ),
       initialRoute: '/',

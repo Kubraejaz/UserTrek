@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:usertrek/constants/colors.dart';
 import 'package:usertrek/models/user_model.dart';
-import 'package:usertrek/widget/profile_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final user = ModalRoute.of(context)?.settings.arguments as UserModel?;
+   
+    final userModel =
+        ModalRoute.of(context)?.settings.arguments as UserModel?;
 
-    if (user == null) {
-      return const Scaffold(
-        backgroundColor: AppColors.background,
-        body: Center(
-          child: Text(
-            'User data is missing',
-            style: TextStyle(color: AppColors.textWhite),
-          ),
-        ),
-      );
-    }
+    final FirebaseAuth _auth = FirebaseAuth.instance;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -29,15 +21,52 @@ class ProfileScreen extends StatelessWidget {
         elevation: 0,
         title: const Text(
           'Profile',
-          style: TextStyle(
-            color: AppColors.textWhite,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
+          style: TextStyle(color: AppColors.textWhite),
         ),
-        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout, color: AppColors.textWhite),
+            onPressed: () async {
+              await _auth.signOut();
+              Navigator.pushReplacementNamed(context, '/login');
+            },
+          )
+        ],
       ),
-      body: ProfileWidget(user: user),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 60,
+              backgroundImage: AssetImage(
+                userModel?.avatarPath ?? 'assets/images/avatar.png',
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              userModel?.account ?? _auth.currentUser?.email ?? 'User',
+              style: const TextStyle(
+                color: AppColors.textWhite,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
+                userModel?.about ?? 'Welcome to your profile!',
+                style: const TextStyle(
+                  color: AppColors.textWhite70,
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
